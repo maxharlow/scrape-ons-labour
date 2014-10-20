@@ -17,4 +17,4 @@ Install requirements:
 
 Run:
 
-    node ons-labour > ons-labour.csv
+    node ons-labour

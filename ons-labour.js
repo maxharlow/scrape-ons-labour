@@ -19,7 +19,4 @@ highland(request('http://www.ons.gov.uk/ons/datasets-and-tables/downloads/csv.cs
 	}
     })
     .through(csvWriter())
-//    .pipe(fs.createWriteStream('ons-labour.csv'))
-    .each(function (record) {
-	console.log(record.replace('\n', ''))
-    })
+    .pipe(fs.createWriteStream('ons-labour.csv'))
