@@ -5,6 +5,8 @@ var moment = require('moment')
 var csvParser = require('csv-parser')
 var csvWriter = require('csv-write-stream')
 
+console.log('Retrieving statistics...')
+
 highland(request('http://www.ons.gov.uk/ons/datasets-and-tables/downloads/csv.csv?dataset=lms'))
     .through(csvParser())
     .filter(function (record) {
@@ -20,3 +22,5 @@ highland(request('http://www.ons.gov.uk/ons/datasets-and-tables/downloads/csv.cs
     })
     .through(csvWriter())
     .pipe(fs.createWriteStream('ons-labour.csv'))
+
+console.log('done')
