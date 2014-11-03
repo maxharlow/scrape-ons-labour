@@ -11,7 +11,7 @@ var dataset = 'http://www.ons.gov.uk/ons/datasets-and-tables/downloads/csv.csv?d
 var data = highland(request(dataset)).through(csvParser())
 
 var dataByMonth = data.filter(function (record) {
-    return /20[0-9][0-9] [JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC]/.test(record[''])
+    return /^(199[8-9]|200[0-9]|201[0-4]) [JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC]/.test(record[''])
 })
 
 var dataSelected = dataByMonth.map(function (record) {
