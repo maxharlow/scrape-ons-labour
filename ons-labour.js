@@ -8,9 +8,15 @@ var csvWriter = require('csv-write-stream')
 console.log('Retrieving statistics...')
 
 var dataset = 'http://www.ons.gov.uk/ons/datasets-and-tables/downloads/csv.csv?dataset=lms'
-var data = highland(request(dataset)).through(csvParser())
 
-var dataByMonth = data.filter(function (record) {
+var data = highland.wrapCallback(request)(dataset).map(function (response) {
+    if (response.statusCode >= 400) throw new Error(response.statusCode)
+    return response.body
+})
+
+var dataParsed = data.through(csvParser())
+
+var dataByMonth = dataParsed.filter(function (record) {
     return /^(199[8-9]|200[0-9]|201[0-4]) [JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC]/.test(record[''])
 })
 
